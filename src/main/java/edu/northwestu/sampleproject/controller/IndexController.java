@@ -9,6 +9,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -42,5 +44,10 @@ public class IndexController {
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
         return "index-unauthenticated";
+    }
+    @PostMapping("/weather-alerts/{id}/delete")
+    public  String deleteWeatherAlert(@PathVariable Long id) {
+        weatherAlertRepository.deleteById(id);
+        return "redirect:/";
     }
 }

@@ -1,9 +1,13 @@
 package edu.northwestu.sampleproject.entity;
 
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Embedded;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 
 @Table("weather_alerts")
@@ -11,11 +15,19 @@ public class WeatherAlert {
 
     @Id
     private Long id;
+
+    @NotBlank @Size(max = 2)
     private String externalId;
-    private String affectedZones; // JSON array of zone IDs
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime sent;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime effective;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime expires;
+
     private String status;
     private String messageType;
     private String severity;
@@ -24,6 +36,7 @@ public class WeatherAlert {
     private String sender;
     private String description;
     private String instruction;
+
 
     public Long getId() {
         return id;
@@ -37,13 +50,6 @@ public class WeatherAlert {
         this.externalId = externalId;
     }
 
-    public String getAffectedZones() {
-        return affectedZones;
-    }
-
-    public void setAffectedZones(String affectedZones) {
-        this.affectedZones = affectedZones;
-    }
 
     public LocalDateTime getSent() {
         return sent;
